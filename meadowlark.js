@@ -5,13 +5,7 @@ const handlebars = require('express-handlebars').create({
     defaultLayout: 'main'
 });
 
-const fortunes = [
-    "Conquer your fears or they will conquer you.",
-    "Rivers need springs",
-    "Do not fear what you don't know",
-    "You will have a pleasant surprise.",
-    "Whnever possible, keep it sinple."
-];
+const fortune = require('./lib/fortune');
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -25,9 +19,8 @@ app.get('/', function (req, res) {
 });
 
 app.get('/about', function (req, res) {
-    let randowmFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
     res.render('about', {
-        fortune: randowmFortune
+        fortune: fortune.getFortune()
     });
 });
 
